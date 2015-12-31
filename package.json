@@ -1,0 +1,36 @@
+{
+  "name": "ecommerce.js",
+  "version": "0.0.1",
+  "description": "Modern E-Commerce Platform for 21th century",
+  "main": "index.js",
+  "scripts": {
+    "test": "scripts/test",
+    "start": "scripts/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebergamo/ecommerce.js.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "shop"
+  ],
+  "author": "Marcos Bérgamo <marcos@thedon.com.br>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebergamo/ecommerce.js/issues"
+  },
+  "homepage": "https://github.com/thebergamo/ecommerce.js#readme",
+  "dependencies": {
+    "bluebird": "~3.1.1",
+    "hapi": "~11.1.4",
+    "joi": "~7.1.0",
+    "sequelize": "~3.15.1",
+    "sequelize-cli": "~2.2.1"
+  },
+  "devDependencies": {
+    "chai": "~3.4.1",
+    "lab": "~8.0.1",
+    "semistandard": "~7.0.4"
+  }
+}
