@@ -1,30 +1,52 @@
 'use strict';
 
-const env = process.env.NODE_ENV || 'development';
+const fs = require('fs');
+const path = require('path');
 
 const Sequelize = require('sequelize');
 
-const config = require('../../config/config')[env];
+const env = process.env.NODE_ENV || 'development';
+const config = getConfig(env);
 
-let db = {};
+module.exports = getDB();
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+function getDB () {
+  const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-// Load models
-const models = fs.readdirSync('src/entities')
-  .filter((dir) => {
-    return dir.match(/^[^.]/);
-  })
-  .map((entity) => {
-    let model = sequelize['import'](path.join('../entities/', entity, entity + '.model'));
-    db[model.name] = model;
+  let db = {
+    sequelize,
+    Sequelize
+  };
 
-    if (model.associate) {
-      db[model.name].associate(db);
-    } 
-  });
+  loadModels(db);
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+  return db;
+}
 
-module.exports = db;
+function loadModels (db) {
+  return fs.readdirSync('src/entities')
+    .filter((dir) => {
+      return dir.match(/^[^.]/);
+    })
+    .map((entity) => {
+      let model = sequelize['import'](path.join('../entities/', entity, entity + '.model'));
+      db[model.name] = model;
+
+      if (model.associate) {
+        db[model.name].associate(db);
+      } 
+    });
+}
+
+function getConfig (env) {
+  env = env === 'test' ? '_TEST' : '';
+
+  return {
+    username: process.env['DB_USERNAME' + env],
+    password: process.env['DB_PASSWORD' + env],
+    database: process.env['DB_NAME' + env],
+    host: process.env['DB_HOST' + env],
+    port: process.env['DB_PORT' + env],
+    dialect: process.env['DB_DIALECT' + env]
+  };
+}
