@@ -23,8 +23,11 @@
   "homepage": "https://github.com/thebergamo/ecommerce.js#readme",
   "dependencies": {
     "bluebird": "~3.1.1",
+    "dotenv": "~1.2.0",
     "hapi": "~11.1.4",
     "joi": "~7.1.0",
+    "pg": "~4.4.3",
+    "pg-hstore": "~2.3.2",
     "sequelize": "~3.15.1",
     "sequelize-cli": "~2.2.1"
   },

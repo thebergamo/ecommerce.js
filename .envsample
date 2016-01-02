@@ -1,0 +1,12 @@
+SERVER_HOST=localhost
+SERVER_PORT=8000
+DB_NAME=ecommercejs
+DB_USERNAME=ecommercejs
+DB_PASSWORD=ecommercejs
+DB_HOST=127.0.0.1
+DB_DIALECT=postgres
+DB_NAME_TEST=ecommercejs
+DB_USERNAME_TEST=ecommercejs
+DB_PASSWORD_TEST=ecommercejs
+DB_HOST_TEST=127.0.0.1
+DB_DIALECT_TEST=postgres
