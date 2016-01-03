@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "scripts/test",
-    "start": "scripts/server"
+    "start": "scripts/server",
+    "migrate": "scripts/migration"
   },
   "repository": {
     "type": "git",
@@ -22,14 +23,22 @@
   },
   "homepage": "https://github.com/thebergamo/ecommerce.js#readme",
   "dependencies": {
+    "bcrypt": "~0.8.5",
     "bluebird": "~3.1.1",
     "dotenv": "~1.2.0",
+    "good": "~6.4.0",
+    "good-console": "~5.2.0",
+    "good-file": "~5.1.1",
     "hapi": "~11.1.4",
+    "hapi-boom-decorators": "~1.1.0",
     "joi": "~7.1.0",
+    "jsonwebtoken": "~5.5.0",
+    "lodash": "~3.10.1",
     "pg": "~4.4.3",
     "pg-hstore": "~2.3.2",
     "sequelize": "~3.15.1",
-    "sequelize-cli": "~2.2.1"
+    "sequelize-cli": "~2.2.1",
+    "umzug": "~1.7.2"
   },
   "devDependencies": {
     "chai": "~3.4.1",

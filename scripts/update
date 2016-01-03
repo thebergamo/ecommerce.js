@@ -10,5 +10,4 @@ scripts/bootstrap
 
 echo "==> Updating db..."
 # run all database migrations to ensure everything is up to date.
-./node_modules/sequelize-cli/bin/sequelize db:migrate
-
+scripts/migration

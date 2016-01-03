@@ -11,8 +11,8 @@ scripts/bootstrap
 
 echo "===> Setting up DB..."
 # reset database to a fresh state.
-./node_modules/sequelize-cli/bin/sequelize db:migrate
-./node_modules/sequelize-cli/bin/sequelize db:seed
+scripts/migration down
+scripts/migration
 
 echo "==> App is now ready to go!"
 
