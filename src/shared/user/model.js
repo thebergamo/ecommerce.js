@@ -14,7 +14,7 @@ module.exports = (sequelize, DataType) => {
     username: {
       type: DataType.STRING(40),
       allowNull: false,
-      unique: true 
+      unique: true
     },
     roles: {
       type: DataType.ENUM,
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataType) => {
       }
     },
     password: {
-      type: DataType.STRING(30),
+      type: DataType.STRING(200),
       allowNull: false,
       validate: {
         is: /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
@@ -50,18 +50,28 @@ module.exports = (sequelize, DataType) => {
       allowNull: false
     }
   }, {
-    hook: {
+    hooks: {
       beforeCreate: function (user) {
-        user.password = hashPassword(user.password);
+        user.set({
+          password: hashPassword(user.get('password'))
+        });
+      },
+      beforeUpdate: function (user) {
+        if (!user.changed('password')) {
+          return;
+        }
+        user.set({
+          password: hashPassword(user.get('password'))
+        });
       }
     },
     instanceMethods: {
       validatePassword: function (password) {
-        return bcrypt.compareSync(password, this.password);
+        return bcrypt.compareSync(password, this.get('password'));
       }
     }
   });
-}
+};
 
 function hashPassword (password) {
   if (!password) {

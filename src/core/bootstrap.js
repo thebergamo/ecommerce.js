@@ -18,5 +18,4 @@ function start () {
     Server.log('error', err);
     process.exit();
   });
-  
 }

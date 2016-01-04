@@ -47,7 +47,6 @@ function readDir (type) {
 
       if (model.associate) {
         db[model.name].associate(db);
-      } 
+      }
     });
-
 }

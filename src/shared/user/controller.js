@@ -112,10 +112,10 @@ function destroy (request, reply) {
 
   this.model.findById(id)
   .then((User) => {
-    return User.detroy();
+    return User.destroy();
   })
   .then(() => {
-    reply();
+    reply({});
   })
   .catch((err) => {
     reply.badImplementation(err.message);

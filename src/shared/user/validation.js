@@ -63,6 +63,7 @@ function create () {
         .min(8)
         .max(30)
         .trim()
+        .regex(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'strong password')
         .required()
     }
   };
@@ -123,6 +124,7 @@ function update () {
         .min(8)
         .max(30)
         .trim()
+        .regex(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'strong password')
         .optional()
     }
   };

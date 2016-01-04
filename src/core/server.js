@@ -13,7 +13,7 @@ const boomDecorators = require('hapi-boom-decorators');
 let server;
 const db = require('./database');
 const log = require('./log');
-
+const auth = require('./auth');
 
 module.exports = server = new Hapi.Server();
 
@@ -31,11 +31,11 @@ if (process.env.NODE_ENV === 'test') {
 // Load routes
 let routes = ['shared', 'admin', 'catalog'].map((type) => {
   return readDir(type);
-}); 
+});
 
-let plugins = _.remove(_.flatten(routes), (pl) => { return pl !== undefined });
+let plugins = _.remove(_.flatten(routes), (pl) => { return pl !== undefined; });
 
-console.log(plugins);
+plugins.push({register: auth});
 plugins.push({register: boomDecorators});
 plugins.push({register: log});
 
@@ -64,9 +64,9 @@ function readDir (type) {
       let root = path.join(__dirname, '..', type, entity, 'route.js');
 
       try {
-        fs.statSync(root).isFile() 
+        fs.statSync(root).isFile();
       } catch (err) {
-        return;  
+        return;
       }
 
       return {
@@ -74,5 +74,4 @@ function readDir (type) {
         options: {database: db}
       };
     });
-
 }

@@ -12,7 +12,7 @@ let options = {
   storageOptions: {
     sequelize: db.sequelize,
     modelName: 'MigrationSchema',
-    tableName: 'MigrationTable' 
+    tableName: 'MigrationTable'
   },
   logging: false,   // TODO: Create new logger to migration function receive a message parameter.
   upName: 'up',
@@ -27,7 +27,7 @@ let options = {
 const umzug = new Umzug(options);
 
 const type = process.argv[2];
-run (type);
+run(type);
 
 function run (type) {
   type = type === 'down' ? 'down' : 'up';
@@ -35,7 +35,7 @@ function run (type) {
   return umzug[type]()
     .then((migrations) => {
       migrations.map((migration) => {
-        console.log('Executed '+ type.toUpperCase() +': ', migration.file);
+        console.log('Executed ' + type.toUpperCase() + ': ', migration.file);
       });
     })
     .then(() => {
