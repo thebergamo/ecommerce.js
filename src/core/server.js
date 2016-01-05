@@ -19,8 +19,8 @@ module.exports = server = new Hapi.Server();
 
 // Set the port for listening
 server.connection({
-  host: process.env.SERVER_HOST,
-  port: process.env.SERVER_PORT
+  host: process.env.SERVER_HOST || 'localhost',
+  port: process.env.SERVER_PORT || '8000'
 });
 
 // Expose database
@@ -44,15 +44,7 @@ server.register(plugins, (err) => {
     throw err;
   }
 
-  if (!module.parent) {
-    server.start((err) => {
-      if (err) {
-        throw err;
-      }
-
-      server.log('info', 'Server running at: ' + server.info.uri);
-    });
-  }
+  return;
 });
 
 function readDir (type) {

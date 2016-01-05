@@ -985,7 +985,7 @@ describe('Routes /user', () => {
       const options = {
         method: 'POST',
         url: '/user/login',
-        payload: {email: 'jack_b@24h.com', password: 'd'}
+        payload: {email: 'jack_b@24h.com', password: '0101#lolBBQ'}
       };
       server.inject(options, (response) => {
         expect(response).to.have.property('statusCode', 401);
@@ -1001,7 +1001,7 @@ describe('Routes /user', () => {
       const options = {
         method: 'POST',
         url: '/user/login',
-        payload: {email: 'jbauer@24h.com', password: 'mmm'}
+        payload: {email: 'jbauer@24h.com', password: '0101#lolBBQ'}
       };
       server.inject(options, (response) => {
         expect(response).to.have.property('statusCode', 401);

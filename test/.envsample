@@ -1,0 +1,10 @@
+SERVER_HOST=127.0.0.1
+SERVER_PORT=8000
+DB_NAME=ecommercejs
+DB_USERNAME=ecommercejs
+DB_PASSWORD=ecommercejs
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DIALECT=postgres
+JWT=awesometoken
+

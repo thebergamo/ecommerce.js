@@ -1,4 +1,7 @@
 'use strict';
+
+require('dotenv').config({ path: __dirname + '/.env', silent: true });
+
 // load deps
 const lab = exports.lab = require('lab').script();
 global.expect = require('chai').expect;

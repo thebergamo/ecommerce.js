@@ -15,7 +15,7 @@ function start () {
     Server.log('info', 'Server running at: ' + Server.info.uri);
   }))
   .catch((err) => {
-    Server.log('error', err);
+    Server.log('==> App Error', err);
     process.exit();
   });
 }

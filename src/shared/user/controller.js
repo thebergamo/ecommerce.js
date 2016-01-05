@@ -21,12 +21,8 @@ module.exports = UserController;
 // [GET] /user
 function list (request, reply) {
   this.model.findAll({})
-  .then((users) => {
-    reply(users);
-  })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .then((users) => reply(users))
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 // [GET] /user/{id}
@@ -36,15 +32,12 @@ function read (request, reply) {
   this.model.findById(id)
   .then((user) => {
     if (!user) {
-      reply.notFound();
-      return;
+      return reply.notFound();
     }
 
     reply(user);
   })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 // [POST] /user
@@ -52,16 +45,8 @@ function create (request, reply) {
   const payload = request.payload;
 
   this.model.create(payload)
-  .then((user) => {
-    const token = getToken(user.id);
-
-    reply({
-      token: token
-    }).code(201);
-  })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .then((user) => reply({ token: getToken(user.id) }).code(201))
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 // [POST] /user/login
@@ -78,15 +63,11 @@ function logIn (request, reply) {
       return reply.unauthorized('Email or Password invalid');
     }
 
-    const token = getToken(user.id);
-
     reply({
-      token: token
+      token: getToken(user.id)
     });
   })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 // [PUT] /user
@@ -95,15 +76,9 @@ function update (request, reply) {
   const payload = request.payload;
 
   this.model.findById(id)
-  .then((User) => {
-    return User.update(payload);
-  })
-  .then((user) => {
-    reply(user);
-  })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .then((user) => user.update(payload))
+  .then((user) => reply(user))
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 // [DELETE] /user
@@ -111,15 +86,9 @@ function destroy (request, reply) {
   const id = request.auth.credentials.id;
 
   this.model.findById(id)
-  .then((User) => {
-    return User.destroy();
-  })
-  .then(() => {
-    reply({});
-  })
-  .catch((err) => {
-    reply.badImplementation(err.message);
-  });
+  .then((user) => user.destroy())
+  .then(() => reply({}))
+  .catch((err) => reply.badImplementation(err.message));
 }
 
 function getToken (id) {

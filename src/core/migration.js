@@ -1,6 +1,8 @@
 'use strict';
 
-require('dotenv').load();
+const envPath = process.env.NODE_ENV === 'test' ? __dirname + '/../../test/.env' : __dirname + '/../../.env';
+
+require('dotenv').config({ path: envPath, silent: true });
 
 const Umzug = require('umzug');
 
