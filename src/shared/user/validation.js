@@ -14,6 +14,36 @@ const UserValidator = {
 
 module.exports = UserValidator;
 
+const schema = {
+  firstName: Joi
+    .string()
+    .min(1)
+    .max(100)
+    .trim(),
+  lastName: Joi
+    .string()
+    .min(1)
+    .max(50)
+    .trim(),
+  username: Joi
+    .string()
+    .min(1)
+    .max(40)
+    .trim(),
+  roles: Joi
+    .string()
+    .valid(['admin', 'publisher', 'customer']),
+  email: Joi
+    .string()
+    .email(),
+  password: Joi
+    .string()
+    .min(8)
+    .max(30)
+    .trim()
+    .regex(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'strong password')
+};
+
 function list () {
   return {};
 }
@@ -32,38 +62,23 @@ function read () {
 function create () {
   return {
     payload: {
-      firstName: Joi
-        .string()
-        .min(1)
-        .max(100)
-        .trim()
+      firstName: schema
+        .firstName
         .required(),
-      lastName: Joi
-        .string()
-        .min(1)
-        .max(50)
-        .trim()
+      lastName: schema
+        .lastName
         .required(),
-      username: Joi
-        .string()
-        .min(1)
-        .max(40)
-        .trim()
+      username: schema
+        .username
         .required(),
-      roles: Joi
-        .string()
-        .valid(['admin', 'publisher', 'customer'])
+      roles: schema
+        .roles
         .required(),
-      email: Joi
-        .string()
-        .email()
+      email: schema
+        .email
         .required(),
-      password: Joi
-        .string()
-        .min(8)
-        .max(30)
-        .trim()
-        .regex(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'strong password')
+      password: schema
+        .password
         .required()
     }
   };
@@ -72,13 +87,11 @@ function create () {
 function logIn () {
   return {
     payload: {
-      email: Joi
-        .string()
-        .email()
+      email: schema
+        .email
         .required(),
-      password: Joi
-        .string()
-        .trim()
+      password: schema
+        .password
         .required()
     }
   };
@@ -93,38 +106,23 @@ function update () {
         .required()
     },
     payload: {
-      firstName: Joi
-        .string()
-        .min(1)
-        .max(100)
-        .trim()
+      firstName: schema
+        .firstName
         .optional(),
-      lastName: Joi
-        .string()
-        .min(1)
-        .max(50)
-        .trim()
+      lastName: schema
+        .lastName
         .optional(),
-      username: Joi
-        .string()
-        .min(1)
-        .max(40)
-        .trim()
+      username: schema
+        .username
         .optional(),
-      roles: Joi
-        .string()
-        .valid(['admin', 'publisher', 'customer'])
+      roles: schema
+        .roles
         .optional(),
-      email: Joi
-        .string()
-        .email()
+      email: schema
+        .email
         .optional(),
-      password: Joi
-        .string()
-        .min(8)
-        .max(30)
-        .trim()
-        .regex(/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'strong password')
+      password: schema
+        .password
         .optional()
     }
   };
