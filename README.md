@@ -18,4 +18,12 @@ The Idea behind is simple, creating a Ecommerce Platform under these pillars:
 # Get Started
 See issues and help us to make this project awesome!
 
+## Contributing
+
+If you want contribute with us. Please, read [Contribution guide](https://github.com/thebergamo/ecommerce.js/blob/master/CONTRIBUTING.md) first.
+
+## License
+
+Licensed under [ISC](https://github.com/thebergamo/ecommerce.js/blob/master/LICENSE)
+
 
