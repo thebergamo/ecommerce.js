@@ -4,6 +4,11 @@ sudo: false
 node_js:
   - "5"
   - "4"
+addons:
+  postgresql: "9.3"
+
+services:
+  - postgresql
 
 cache:
   directories:
