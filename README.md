@@ -1,4 +1,6 @@
 # ecommerce.js
+
+[![Join the chat at https://gitter.im/thebergamo/ecommerce.js](https://badges.gitter.im/thebergamo/ecommerce.js.svg)](https://gitter.im/thebergamo/ecommerce.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Modern E-Commerce Platform for 21th century
 
 # What is Ecommerce.js?
