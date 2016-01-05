@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "scripts/test",
+    "coverage": "scripts/coverage",
     "start": "scripts/server",
     "migrate": "scripts/migration"
   },
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "chai": "~3.4.1",
+    "coveralls": "^2.11.6",
     "lab": "~8.0.1",
     "semistandard": "~7.0.4"
   }

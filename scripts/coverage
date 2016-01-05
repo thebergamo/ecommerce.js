@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# script/coverage: run coverage and send them to overalls
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+[ -z "$DEBUG" ] || set -x
+
+if [ "$NODE_ENV" = "test" ]; then
+  scripts/setup
+else
+  export NODE_ENV="test"
+  scripts/update
+fi
+
+echo "===> Running coverage..."
+
+./node_modules/.bin/lab -s -r lcov | ./node_modules/.bin/coveralls
