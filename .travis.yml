@@ -15,6 +15,7 @@ cache:
     node_modules
 
 before_script:
+  - scripts/bootstrap
   - psql -c "create database $DB_NAME_TEST;" -U $DB_USERNAME_TEST
 
 after_script:
