@@ -19,7 +19,7 @@ fi
 if [ "$TRAVIS" = true ]; then
   echo "==> THIS IS TRAVIS"
   echo "=>> Seeing up deps…"
-  cp test/.envsample .env
+  cp .envsample .env
   export $(cat < .env)
 elif  [ -f ".node-version" ] && [ -z "$(nodenv version-name 2>/dev/null)" ]; then
   echo "==> Installing Node.js…"
