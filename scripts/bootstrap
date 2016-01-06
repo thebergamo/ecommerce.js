@@ -17,6 +17,8 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
 fi
 
 if [ "$TRAVIS" = true ]; then
+  echo "==> THIS IS TRAVIS"
+  echo "=>> Seeing up deps…"
   cp test/.envsample .env
   export $(cat < .env)
 elif  [ -f ".node-version" ] && [ -z "$(nodenv version-name 2>/dev/null)" ]; then
