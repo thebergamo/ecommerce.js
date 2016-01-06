@@ -14,8 +14,9 @@ cache:
   directories:
     node_modules
 
-before_script:
-  - source scripts/bootstrap
+install:
+  - pwd && npm install
+  - pwd && source scripts/bootstrap
   - env
   - psql -c "create database $DB_NAME_TEST;" -U $DB_USERNAME_TEST
 
