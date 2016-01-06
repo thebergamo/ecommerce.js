@@ -4,7 +4,12 @@ require('dotenv').config({ path: __dirname + '/.env', silent: true });
 
 // load deps
 const lab = exports.lab = require('lab').script();
-global.expect = require('chai').expect;
+const chai = require('chai');
+
+// chai plugins
+chai.use(require('chai-things'));
+
+global.expect = chai.expect;
 
 // prepare environment
 global. it = lab.it;

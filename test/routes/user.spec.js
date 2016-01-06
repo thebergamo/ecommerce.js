@@ -2,6 +2,7 @@
 'use strict';
 
 let jwt = require('jsonwebtoken');
+const SECRET = process.env.JWT || 'stubJWT';
 
 describe('Routes /user', () => {
   describe('GET /user', () => {
@@ -61,14 +62,11 @@ describe('Routes /user', () => {
       server.inject(options, (response) => {
         expect(response).to.have.property('result');
         expect(response.result).to.have.length.least(5);
-        for (let i = 0; i < 5; i++) {
-          let user = response.result[i];
-          expect(user).to.have.property('firstName', 'User ' + i);
-          expect(user).to.have.property('lastName', 'Doe');
-          expect(user).to.have.property('roles', 'admin');
-          expect(user).to.have.property('username', 'user_' + i);
-          expect(user).to.have.property('email', 'user_' + i + '@example.com');
-        }
+        expect(response.result).to.contain.a.thing.with.property('firstName');
+        expect(response.result).to.contain.a.thing.with.property('lastName');
+        expect(response.result).to.contain.a.thing.with.property('roles');
+        expect(response.result).to.contain.a.thing.with.property('username');
+        expect(response.result).to.contain.a.thing.with.property('email');
         done();
       });
     });
@@ -95,7 +93,7 @@ describe('Routes /user', () => {
 
         server.inject(options, (response) => {
           token = response.result.token;
-          userInfo = jwt.verify(token, process.env.JWT);
+          userInfo = jwt.verify(token, SECRET);
           done();
         });
       });
@@ -543,7 +541,7 @@ describe('Routes /user', () => {
 
         server.inject(options, (response) => {
           token = response.result.token;
-          userInfo = jwt.verify(token, process.env.JWT);
+          userInfo = jwt.verify(token, SECRET);
           done();
         });
       });
@@ -1049,7 +1047,7 @@ describe('Routes /user', () => {
 
         server.inject(options, (response) => {
           token = response.result.token;
-          userInfo = jwt.verify(token, process.env.JWT);
+          userInfo = jwt.verify(token, SECRET);
           done();
         });
       });
