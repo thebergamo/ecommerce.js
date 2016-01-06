@@ -20,7 +20,6 @@ The Idea behind is simple, creating a Ecommerce Platform under these pillars:
 # Get Started
 See issues and help us to make this project awesome!
 
-<<<<<<< 5de6fff3b1eebb0f907ac8174c4852e3efa197de
 ## Contributing
 
 If you want contribute with us. Please, read [Contribution guide](https://github.com/thebergamo/ecommerce.js/blob/master/CONTRIBUTING.md) first.
@@ -37,4 +36,4 @@ Licensed under [ISC](https://github.com/thebergamo/ecommerce.js/blob/master/LICE
 [david-badge]: https://david-dm.org/thebergamo/ecommerce.js.svg
 [david-url]: https://david-dm.org/thebergamo/ecommerce.js
 [gitter-badge]: https://badges.gitter.im/thebergamo/ecommerce.js.svg
-[gitter-url]= https://gitter.im/thebergamo/ecommerce.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[gitter-url]: https://gitter.im/thebergamo/ecommerce.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
