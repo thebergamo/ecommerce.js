@@ -2,11 +2,6 @@
 
 module.exports = (sequelize, DataType) => {
   let Product = sequelize.define('Product', {
-    id: {
-      type: DataType.INTEGER,
-      autoincrement: true,
-      primaryKey: true
-    },
     name: {
       type: DataType.STRING(100),
       allowNull: false
@@ -38,10 +33,10 @@ module.exports = (sequelize, DataType) => {
     classMethods: {
       associate: (models) => {
         Product.belongsToMany(models.Category,
-          { through: 'ProductCategory'});
+          { through: 'ProductCategory' });
       }
     }
   });
 
   return Product;
-}
+};
