@@ -105,7 +105,7 @@ function update () {
         .optional(),
       price: schema
         .price
-        .optinal(),
+        .optional(),
       status: schema
         .status
         .optional()
