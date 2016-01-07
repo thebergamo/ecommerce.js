@@ -6,7 +6,7 @@ const Validator = require('./validation');
 exports.register = (server, options, next) => {
   // instantiate controller
   const controller = new Controller(options.database);
-  
+
   server.bind(controller);
   server.route([
     {
@@ -58,5 +58,4 @@ exports.register.attributes = {
   name: 'category',
   version: '1.0.0'
 };
-
 
