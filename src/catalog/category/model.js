@@ -2,11 +2,6 @@
 
 module.exports = (sequelize, DataType) => {
   let Category = sequelize.define('Category', {
-    id: {
-      type: DataType.INTEGER,
-      autoincrement: true,
-      primaryKey: true
-    },
     name: {
       type: DataType.STRING(100),
       allowNull: false
@@ -26,11 +21,11 @@ module.exports = (sequelize, DataType) => {
       associate: (models) => {
         Category.hasOne(Category, { as: 'parent' });
         Category.belongsToMany(models.Product,
-          { through: 'ProductCategory'});
+          { through: 'ProductCategory' });
       }
     }
   });
 
   return Category;
-}
+};
 
