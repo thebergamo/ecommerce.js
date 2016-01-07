@@ -66,7 +66,7 @@ exports.register = (server, options, next) => {
 };
 
 exports.register.attributes = {
-  name: 'user-route',
+  name: 'user',
   version: '1.0.0'
 };
 
