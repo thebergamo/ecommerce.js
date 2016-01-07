@@ -7,7 +7,6 @@ const ProductValidator = {
   list,
   read,
   create,
-  logIn,
   update,
   destroy
 };
