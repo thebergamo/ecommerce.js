@@ -15,6 +15,6 @@ function up (db) {
 function down (db) {
   const Product = require('../src/catalog/product/model')(db.sequelize, db.Sequelize);
   const Category = require('../src/catalog/category/model')(db.sequelize, db.Sequelize);
-  return Promise.all([Product.sync(), Category.sync()]);
+  return Promise.all([Product.drop(), Category.drop()]);
 }
 
