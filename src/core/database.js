@@ -21,11 +21,22 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 module.exports = db = { sequelize, Sequelize };
 
 loadModels(db);
+doAssociations(db);
 
 function loadModels (db) {
   return ['shared', 'admin', 'catalog'].map((type) => {
     return readDir(type);
   });
+}
+
+function doAssociations (db) {
+  Object.keys(db).forEach((modelName) => {
+    if ("associate" in db[modelName]) {
+      db[modelName].associate(db);
+    }
+  });
+
+  return;
 }
 
 function readDir (type) {
@@ -44,9 +55,5 @@ function readDir (type) {
 
       let model = sequelize['import'](root);
       db[model.name] = model;
-
-      if (model.associate) {
-        db[model.name].associate(db);
-      }
     });
 }
