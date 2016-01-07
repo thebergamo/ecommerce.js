@@ -81,9 +81,9 @@ function update () {
       description: schema
         .description
         .optional(),
-      parent: schema
-        .parent
-        .optinal(),
+      parentId: schema
+        .parentId
+        .optional(),
       status: schema
         .status
         .optional()
@@ -102,5 +102,4 @@ function destroy () {
     }
   };
 }
-
 
