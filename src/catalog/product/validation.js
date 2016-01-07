@@ -48,8 +48,9 @@ function read () {
   return {
     params: {
       id: Joi
-        .string()
-        .guid()
+        .number()
+        .integer()
+        .positive()
         .required()
     }
   };
@@ -84,8 +85,9 @@ function update () {
   return {
     params: {
       id: Joi
-        .string()
-        .guid()
+        .number()
+        .integer()
+        .positive()
         .required()
     },
     payload: {
@@ -115,8 +117,9 @@ function destroy () {
   return {
     params: {
       id: Joi
-        .string()
-        .guid()
+        .number()
+        .integer()
+        .positive()
         .required()
     }
   };
