@@ -199,7 +199,7 @@ describe('Routes /product', () => {
           expect(response).to.have.property('result');
           expect(response.result).to.have.property('statusCode', 400);
           expect(response.result).to.have.property('error', 'Bad Request');
-          expect(response.result).to.have.property('message', 'child "id" fails because ["id" must be a valid GUID]');
+          expect(response.result).to.have.property('message', 'child "id" fails because ["id" must be a number]');
           done();
         });
       });
@@ -207,7 +207,7 @@ describe('Routes /product', () => {
       it('return 404 HTTP status code when the specified id is not found', (done) => {
         const options = {
           method: 'GET',
-          url: '/user/1000',
+          url: '/product/1000',
           headers: {'Authorization': 'Bearer ' + userInfo}
         };
 
@@ -225,7 +225,7 @@ describe('Routes /product', () => {
 
   describe('POST /product', () => {
     beforeEach((done) => {
-      return db.User.truncate()
+      return db.Product.truncate()
       .then(() => {
         done();
       });
@@ -340,23 +340,6 @@ describe('Routes /product', () => {
       });
     });
 
-    it('returns 400 HTTP status code  when `price` is empty', (done) => {
-      const options = {
-        method: 'POST',
-        url: '/product',
-        headers: {'Authorization': 'Bearer ' + userInfo},
-        payload: { name: 'Moto X', price: 0 }
-      };
-      server.inject(options, (response) => {
-        expect(response).to.have.property('statusCode', 400);
-        expect(response).to.have.property('result');
-        expect(response.result).to.have.property('statusCode', 400);
-        expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" is not allowed to be empty]');
-        done();
-      });
-    });
-
     it('returns 400 HTTP status code  when `price` isn\'t a number', (done) => {
       const options = {
         method: 'POST',
@@ -369,7 +352,7 @@ describe('Routes /product', () => {
         expect(response).to.have.property('result');
         expect(response.result).to.have.property('statusCode', 400);
         expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a string]');
+        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a number]');
         done();
       });
     });
@@ -386,7 +369,7 @@ describe('Routes /product', () => {
         expect(response).to.have.property('result');
         expect(response.result).to.have.property('statusCode', 400);
         expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" length must be less than or equal to 100 characters long]');
+        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a positive number]');
         done();
       });
     });
@@ -394,7 +377,8 @@ describe('Routes /product', () => {
     it('returns 201 HTTP status code when all data is correct', (done) => {
       const options = {
         method: 'POST',
-        url: '/user',
+        url: '/product',
+        headers: {'Authorization': 'Bearer ' + userInfo},
         payload: {
           name: 'Moto X',
           description: 'Cool moto x with 32GB internal storage!!',
@@ -562,23 +546,6 @@ describe('Routes /product', () => {
       });
     });
 
-    it('returns 400 HTTP status code  when `price` is empty', (done) => {
-      const options = {
-        method: 'PUT',
-        url: '/product/' + product.id,
-        headers: {'Authorization': 'Bearer ' + userInfo},
-        payload: { name: 'Moto X', price: 0 }
-      };
-      server.inject(options, (response) => {
-        expect(response).to.have.property('statusCode', 400);
-        expect(response).to.have.property('result');
-        expect(response.result).to.have.property('statusCode', 400);
-        expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" is not allowed to be empty]');
-        done();
-      });
-    });
-
     it('returns 400 HTTP status code  when `price` isn\'t a number', (done) => {
       const options = {
         method: 'PUT',
@@ -591,7 +558,7 @@ describe('Routes /product', () => {
         expect(response).to.have.property('result');
         expect(response.result).to.have.property('statusCode', 400);
         expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a string]');
+        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a number]');
         done();
       });
     });
@@ -601,14 +568,14 @@ describe('Routes /product', () => {
         method: 'PUT',
         url: '/product/' + product.id,
         headers: {'Authorization': 'Bearer ' + userInfo},
-        payload: { name: 'Moto X', price: -1 }
+        payload: { name: 'Moto X', price: 0 }
       };
       server.inject(options, (response) => {
         expect(response).to.have.property('statusCode', 400);
         expect(response).to.have.property('result');
         expect(response.result).to.have.property('statusCode', 400);
         expect(response.result).to.have.property('error', 'Bad Request');
-        expect(response.result).to.have.property('message', 'child "price" fails because ["price" length must be less than or equal to 100 characters long]');
+        expect(response.result).to.have.property('message', 'child "price" fails because ["price" must be a positive number]');
         done();
       });
     });
