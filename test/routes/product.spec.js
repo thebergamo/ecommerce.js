@@ -401,7 +401,7 @@ describe('Routes /product', () => {
     });
   });
 
-  describe('PUT /user/{id}', () => {
+  describe('PUT /product/{id}', () => {
     let product;
     before((done) => {
       return db.Product.truncate()
@@ -626,7 +626,7 @@ describe('Routes /product', () => {
     });
   });
 
-  describe('DELETE /user/{id}', () => {
+  describe('DELETE /product/{id}', () => {
     let product;
     before((done) => {
       return db.Product.truncate()
