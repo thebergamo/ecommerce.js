@@ -11,6 +11,14 @@ module.exports = (sequelize, DataType) => {
       allowNull: false,
       defaultValue: ''
     },
+    parentId: {
+      type: DataType.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'Categories',
+        key: 'id'
+      }
+    },
     status: {
       type: DataType.BOOLEAN,
       allowNull: false,
@@ -19,7 +27,7 @@ module.exports = (sequelize, DataType) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Category.hasOne(Category, { as: 'parent' });
+        Category.belongsTo(models.Category, { foreignKey: 'parentId' });
         Category.belongsToMany(models.Product,
           { through: 'ProductCategory' });
       }
