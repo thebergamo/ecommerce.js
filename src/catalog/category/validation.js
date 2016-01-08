@@ -57,7 +57,7 @@ function create () {
         .optional(),
       parentId: schema
         .parentId
-        .required(),
+        .optional(),
       status: schema
         .status
         .optional()
