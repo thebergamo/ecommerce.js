@@ -29,7 +29,7 @@ describe('Routes /category', () => {
 
   describe('GET /category', () => {
     beforeEach((done) => {
-      return db.Category.truncate()
+      return db.Category.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
@@ -65,7 +65,7 @@ describe('Routes /category', () => {
     });
 
     it('return 200 HTTP status code', (done) => {
-      db.Category.truncate()
+      db.Category.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'GET',
@@ -80,7 +80,7 @@ describe('Routes /category', () => {
     });
 
     it('return an empty array when category is empty', (done) => {
-      db.Product.truncate()
+      db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'GET',
@@ -115,7 +115,7 @@ describe('Routes /category', () => {
   describe('GET /category/{id}', () => {
     let category;
     before((done) => {
-      return db.Category.truncate()
+      return db.Category.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
@@ -213,7 +213,7 @@ describe('Routes /category', () => {
 
   describe('POST /category', () => {
     before((done) => {
-      return db.Category.truncate()
+      return db.Category.destroy({where: {}})
       .then(() => {
         done();
       });
@@ -335,7 +335,7 @@ describe('Routes /category', () => {
     describe('when a parent is specified', () => {
       let category;
       before((done) => {
-        return db.Category.truncate()
+        return db.Category.destroy({where: {}})
         .then(() => {
           const options = {
             method: 'POST',
@@ -382,7 +382,7 @@ describe('Routes /category', () => {
   describe('PUT /category/{id}', () => {
     let category;
     before((done) => {
-      return db.Category.truncate()
+      return db.Category.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
@@ -496,7 +496,7 @@ describe('Routes /category', () => {
   describe('DELETE /category/{id}', () => {
     let category;
     before((done) => {
-      return db.Category.truncate()
+      return db.Category.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',

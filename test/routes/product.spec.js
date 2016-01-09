@@ -1,6 +1,8 @@
 /* global describe, beforeEach, before, it, expect, db, server */
 'use strict';
 
+const Promise = require('bluebird');
+
 describe('Routes /product', () => {
   let userInfo;
 
@@ -29,7 +31,7 @@ describe('Routes /product', () => {
 
   describe('GET /product', () => {
     beforeEach((done) => {
-      return db.Product.truncate()
+      return db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
@@ -68,7 +70,7 @@ describe('Routes /product', () => {
     });
 
     it('return 200 HTTP status code', (done) => {
-      db.Product.truncate()
+      db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'GET',
@@ -83,7 +85,7 @@ describe('Routes /product', () => {
     });
 
     it('return an empty array when users is empty', (done) => {
-      db.Product.truncate()
+      db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'GET',
@@ -121,7 +123,7 @@ describe('Routes /product', () => {
   describe('GET /product/{id}', () => {
     let product;
     before((done) => {
-      return db.Product.truncate()
+      return db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
@@ -224,8 +226,8 @@ describe('Routes /product', () => {
   });
 
   describe('POST /product', () => {
-    beforeEach((done) => {
-      return db.Product.truncate()
+    before((done) => {
+      return db.Product.destroy({where: {}})
       .then(() => {
         done();
       });
@@ -399,12 +401,86 @@ describe('Routes /product', () => {
         done();
       });
     });
+
+    describe('when a product have category', () => {
+      let categories;
+
+      before((done) => {
+        return db.Category.destroy({where: {}})
+          .then(() => {
+            const cat0 = { name: 'Telephony', description: '', status: true };
+            const cat1 = { name: 'Computer', description: '', status: true };
+            return Promise.props({
+              cat: db.Category.create(cat0),
+              cat2: db.Category.create(cat1)
+            });
+          })
+          .then((result) => {
+            categories = [result.cat, result.cat2];
+            return done();
+          });
+      });
+
+      it('returns 201 HTTP status code when a single category is send', (done) => {
+        const options = {
+          method: 'POST',
+          url: '/product',
+          headers: {'Authorization': 'Bearer ' + userInfo},
+          payload: {
+            name: 'Moto X 2',
+            description: 'Cool moto x with 64GB internal storage!!',
+            model: 'XT1098',
+            upc: '7892597336617',
+            price: 1499.00,
+            category: categories[0].id,
+            status: true
+          }};
+        server.inject(options, (response) => {
+          expect(response).to.have.property('statusCode', 201);
+          expect(response).to.have.property('result');
+          expect(response.result).to.have.property('name', 'Moto X 2');
+          expect(response.result).to.have.property('description', 'Cool moto x with 64GB internal storage!!');
+          expect(response.result).to.have.property('model', 'XT1098');
+          expect(response.result).to.have.property('upc', '7892597336617');
+          expect(response.result).to.have.property('price', 1499.00);
+          expect(response.result).to.have.property('status', true);
+          done();
+        });
+      });
+
+      it('returns 201 HTTP status code when multiple categories are send', (done) => {
+        const options = {
+          method: 'POST',
+          url: '/product',
+          headers: {'Authorization': 'Bearer ' + userInfo},
+          payload: {
+            name: 'Moto X 3',
+            description: 'Cool moto x with 128GB internal storage!!',
+            model: 'XT1099',
+            upc: '7892597336618',
+            price: 1499.00,
+            category: [categories[0].id, categories[1].id],
+            status: true
+          }};
+        server.inject(options, (response) => {
+          expect(response).to.have.property('statusCode', 201);
+          expect(response).to.have.property('result');
+          expect(response.result).to.have.property('name', 'Moto X 3');
+          expect(response.result).to.have.property('description', 'Cool moto x with 128GB internal storage!!');
+          expect(response.result).to.have.property('model', 'XT1099');
+          expect(response.result).to.have.property('upc', '7892597336618');
+          expect(response.result).to.have.property('price', 1499.00);
+          expect(response.result).to.have.property('status', true);
+          done();
+        });
+      });
+    });
   });
 
   describe('PUT /product/{id}', () => {
     let product;
     before((done) => {
-      return db.Product.truncate()
+      return Promise.all([db.ProductCategory.destroy({where: {}}), db.Product.destroy({where: {}})])
       .then(() => {
         const options = {
           method: 'POST',
@@ -629,7 +705,7 @@ describe('Routes /product', () => {
   describe('DELETE /product/{id}', () => {
     let product;
     before((done) => {
-      return db.Product.truncate()
+      return db.Product.destroy({where: {}})
       .then(() => {
         const options = {
           method: 'POST',
