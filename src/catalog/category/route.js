@@ -11,16 +11,15 @@ exports.register = (server, options, next) => {
   server.route([
     {
       method: 'GET',
-      path: '/user',
+      path: '/category',
       config: {
-        auth: false,
         handler: controller.list,
         validate: Validator.list()
       }
     },
     {
       method: 'GET',
-      path: '/user/{id}',
+      path: '/category/{id}',
       config: {
         handler: controller.read,
         validate: Validator.read()
@@ -28,25 +27,15 @@ exports.register = (server, options, next) => {
     },
     {
       method: 'POST',
-      path: '/user',
+      path: '/category',
       config: {
-        auth: false,
         handler: controller.create,
         validate: Validator.create()
       }
     },
     {
-      method: 'POST',
-      path: '/user/login',
-      config: {
-        auth: false,
-        handler: controller.logIn,
-        validate: Validator.logIn()
-      }
-    },
-    {
       method: 'PUT',
-      path: '/user/{id?}',
+      path: '/category/{id?}',
       config: {
         handler: controller.update,
         validate: Validator.update()
@@ -54,7 +43,7 @@ exports.register = (server, options, next) => {
     },
     {
       method: 'DELETE',
-      path: '/user/{id?}',
+      path: '/category/{id?}',
       config: {
         handler: controller.destroy,
         validate: Validator.destroy()
@@ -66,7 +55,7 @@ exports.register = (server, options, next) => {
 };
 
 exports.register.attributes = {
-  name: 'user',
+  name: 'category',
   version: '1.0.0'
 };
 
