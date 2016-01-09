@@ -33,7 +33,7 @@ module.exports = (sequelize, DataType) => {
     classMethods: {
       associate: (models) => {
         Product.belongsToMany(models.Category,
-          { through: 'ProductCategory' });
+          { through: models.ProductCategory, foreignKey: 'product_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
       }
     }
   });
