@@ -69,6 +69,7 @@ function update (request, reply) {
   delete request.payload.category;
 
   this.model.findById(id)
+  .then((product) => product.update(payload))
   .then((product) => {
     return product.addCategories(categories)
     .then(() => {
@@ -80,7 +81,6 @@ function update (request, reply) {
       });
     });
   })
-  .then((product) => product.update(payload))
   .then((product) => reply(product))
   .catch((err) => reply.badImplementation(err.message));
 }
