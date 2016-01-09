@@ -70,7 +70,7 @@ function update (request, reply) {
 
   this.model.findById(id)
   .then((product) => {
-    return product.addCategories(categories);
+    return product.addCategories(categories)
     .then(() => {
       return product.getCategories()
       .then((categories) => {
