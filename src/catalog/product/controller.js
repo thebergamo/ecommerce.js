@@ -40,8 +40,22 @@ function read (request, reply) {
 // [POST] /product
 function create (request, reply) {
   const payload = request.payload;
+  const categories = request.payload.category;
+
+  delete request.payload.category;
 
   this.model.create(payload)
+  .then((product) => {
+    return product.addCategories(categories)
+    .then(() => {
+      return product.getCategories()
+      .then((categories) => {
+        product = product.get({ plain: true });
+        product['categories'] = categories;
+        return product;
+      });
+    });
+  })
   .then((product) => reply(product).code(201))
   .catch((err) => reply.badImplementation(err.message));
 }
@@ -50,8 +64,19 @@ function create (request, reply) {
 function update (request, reply) {
   const id = request.params.id;
   const payload = request.payload;
+  const categories = request.payload.category;
+
+  delete request.payload.category;
 
   this.model.findById(id)
+  .then((product) => {
+    product.addCategories(categories);
+    return product.save()
+    .then(() => {
+      product['categories'] = product.getCategories();
+      return product;
+    });
+  })
   .then((product) => product.update(payload))
   .then((product) => reply(product))
   .catch((err) => reply.badImplementation(err.message));
