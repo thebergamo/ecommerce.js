@@ -35,6 +35,10 @@ const schema = {
     .number()
     .precision(2)
     .positive(),
+  category: Joi
+    .array()
+    .items(Joi.number().positive())
+    .single(),
   status: Joi
     .boolean()
     .default(false)
@@ -74,6 +78,9 @@ function create () {
       price: schema
         .price
         .required(),
+      category: schema
+        .category
+        .optional(),
       status: schema
         .status
         .optional()
@@ -105,6 +112,9 @@ function update () {
         .optional(),
       price: schema
         .price
+        .optional(),
+      category: schema
+        .category
         .optional(),
       status: schema
         .status
