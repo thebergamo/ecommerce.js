@@ -29,7 +29,7 @@ module.exports = (sequelize, DataType) => {
       associate: (models) => {
         Category.belongsTo(models.Category, { foreignKey: 'parentId' });
         Category.belongsToMany(models.Product,
-          { through: 'ProductCategory' });
+          { through: models.ProductCategory, foreignKey: 'category_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
       }
     }
   });
