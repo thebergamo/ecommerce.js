@@ -444,6 +444,12 @@ describe('Routes /product', () => {
           expect(response.result).to.have.property('upc', '7892597336617');
           expect(response.result).to.have.property('price', 1499.00);
           expect(response.result).to.have.property('status', true);
+          expect(response.result).to.have.property('categories');
+          expect(response.result.categories).to.be.an('array');
+          expect(response.result.categories.length).to.have.least(1);
+          expect(response.result.categories).to.contain.a.thing.with.property('name');
+          expect(response.result.categories).to.contain.a.thing.with.property('status');
+
           done();
         });
       });
@@ -471,6 +477,11 @@ describe('Routes /product', () => {
           expect(response.result).to.have.property('upc', '7892597336618');
           expect(response.result).to.have.property('price', 1499.00);
           expect(response.result).to.have.property('status', true);
+          expect(response.result).to.have.property('categories');
+          expect(response.result.categories).to.be.an('array');
+          expect(response.result.categories.length).to.have.least(2);
+          expect(response.result.categories).to.contain.a.thing.with.property('name');
+          expect(response.result.categories).to.contain.a.thing.with.property('status');
           done();
         });
       });
@@ -700,12 +711,102 @@ describe('Routes /product', () => {
         done();
       });
     });
+
+    describe('when a product have category', () => {
+      let categories;
+
+      before((done) => {
+        return db.Category.destroy({where: {}})
+          .then(() => {
+            const cat0 = { name: 'Telephony', description: '', status: true };
+            const cat1 = { name: 'Computer', description: '', status: true };
+            return Promise.props({
+              cat: db.Category.create(cat0),
+              cat2: db.Category.create(cat1)
+            });
+          })
+          .then((result) => {
+            categories = [result.cat, result.cat2];
+            return done();
+          });
+      });
+
+      it('returns 200 HTTP status code when a single category is send', (done) => {
+        const id = product.id;
+
+        product.category = categories[0].id;
+        delete product.id;
+        delete product.categories;
+        delete product.createdAt;
+        delete product.updatedAt;
+
+        const options = {
+          method: 'PUT',
+          url: '/product/' + id,
+          headers: {'Authorization': 'Bearer ' + userInfo},
+          payload: product
+        };
+        server.inject(options, (response) => {
+          product = response.result;
+
+          expect(response).to.have.property('statusCode', 200);
+          expect(response).to.have.property('result');
+          expect(response.result).to.have.property('name', 'Moto X');
+          expect(response.result).to.have.property('description', 'Cool moto x with 32GB internal storage!!');
+          expect(response.result).to.have.property('model', 'XT1097');
+          expect(response.result).to.have.property('upc', '7892597336616');
+          expect(response.result).to.have.property('price', 1499.00);
+          expect(response.result).to.have.property('status', true);
+          expect(response.result).to.have.property('categories');
+          expect(response.result.categories).to.be.an('array');
+          expect(response.result.categories.length).to.have.least(1);
+          expect(response.result.categories).to.contain.a.thing.with.property('name');
+          expect(response.result.categories).to.contain.a.thing.with.property('status');
+
+          done();
+        });
+      });
+
+      it('returns 200 HTTP status code when multiple categories are send', (done) => {
+        const id = product.id;
+
+        product.category = [categories[0].id, categories[1].id];
+        delete product.id;
+        delete product.categories;
+        delete product.createdAt;
+        delete product.updatedAt;
+
+        const options = {
+          method: 'PUT',
+          url: '/product/' + id,
+          headers: {'Authorization': 'Bearer ' + userInfo},
+          payload: product
+        };
+
+        server.inject(options, (response) => {
+          expect(response).to.have.property('statusCode', 200);
+          expect(response).to.have.property('result');
+          expect(response.result).to.have.property('name', 'Moto X');
+          expect(response.result).to.have.property('description', 'Cool moto x with 32GB internal storage!!');
+          expect(response.result).to.have.property('model', 'XT1097');
+          expect(response.result).to.have.property('upc', '7892597336616');
+          expect(response.result).to.have.property('price', 1499.00);
+          expect(response.result).to.have.property('status', true);
+          expect(response.result).to.have.property('categories');
+          expect(response.result.categories).to.be.an('array');
+          expect(response.result.categories.length).to.have.least(2);
+          expect(response.result.categories).to.contain.a.thing.with.property('name');
+          expect(response.result.categories).to.contain.a.thing.with.property('status');
+          done();
+        });
+      });
+    });
   });
 
   describe('DELETE /product/{id}', () => {
     let product;
     before((done) => {
-      return db.Product.destroy({where: {}})
+      return Promise.all([db.ProductCategory.destroy({where: {}}), db.Product.destroy({where: {}})])
       .then(() => {
         const options = {
           method: 'POST',
