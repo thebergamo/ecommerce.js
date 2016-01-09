@@ -9,8 +9,9 @@ function start () {
   return Promise.resolve()
   .then(() => {
     Server.start((err) => {
-      if (err)
+      if (err) {
         throw err;
+      }
 
       Server.log('info', 'Server running at: ' + Server.info.uri);
     });
