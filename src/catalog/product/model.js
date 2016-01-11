@@ -30,10 +30,6 @@ module.exports = (sequelize, DataType) => {
       defaultValue: false
     }
   }, {
-    createdAt: 'created_at',
-    updatedAt: 'update_at',
-    tableName: 'products',
-
     classMethods: {
       associate: (models) => {
         Product.belongsToMany(models.Category,
