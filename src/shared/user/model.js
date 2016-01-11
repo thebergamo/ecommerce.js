@@ -23,13 +23,11 @@ module.exports = (sequelize, DataType) => {
     },
     firstName: {
       type: DataType.STRING(100),
-      allowNull: false,
-      field: 'first_name'
+      allowNull: false
     },
     lastName: {
       type: DataType.STRING(50),
-      allowNull: false,
-      field: 'last_name'
+      allowNull: false
     },
     email: {
       type: DataType.STRING(120),
@@ -52,10 +50,6 @@ module.exports = (sequelize, DataType) => {
       allowNull: false
     }
   }, {
-    createdAt: 'created_at',
-    updatedAt: 'update_at',
-    tableName: 'users',
-
     hooks: {
       beforeCreate: function (user) {
         user.set({
