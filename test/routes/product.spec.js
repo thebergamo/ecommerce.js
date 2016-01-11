@@ -737,8 +737,8 @@ describe('Routes /product', () => {
         product.category = categories[0].id;
         delete product.id;
         delete product.categories;
-        delete product.createdAt;
-        delete product.updatedAt;
+        delete product.created_at;
+        delete product.update_at;
 
         const options = {
           method: 'PUT',
@@ -773,8 +773,8 @@ describe('Routes /product', () => {
         product.category = [categories[0].id, categories[1].id];
         delete product.id;
         delete product.categories;
-        delete product.createdAt;
-        delete product.updatedAt;
+        delete product.created_at;
+        delete product.update_at;
 
         const options = {
           method: 'PUT',
