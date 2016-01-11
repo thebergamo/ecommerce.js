@@ -23,9 +23,8 @@ module.exports = (sequelize, DataType) => {
   }, {
     createdAt: 'created_at',
     updatedAt: 'update_at',
-    tableName: 'product_categories',    
+    tableName: 'product_categories',
     underscored: true,
-
     classMethods: {
       associate: (models) => {
         productCategory.belongsTo(models.Product, {
