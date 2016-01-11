@@ -15,9 +15,10 @@ module.exports = (sequelize, DataType) => {
       type: DataType.INTEGER,
       allowNull: true,
       references: {
-        model: 'Categories',
+        model: 'categories',
         key: 'id'
-      }
+      },
+      field: 'parent_id'
     },
     status: {
       type: DataType.BOOLEAN,
@@ -25,9 +26,13 @@ module.exports = (sequelize, DataType) => {
       defaultValue: false
     }
   }, {
+    createdAt: 'created_at',
+    updatedAt: 'update_at',
+    tableName: 'categories',
+
     classMethods: {
       associate: (models) => {
-        Category.belongsTo(models.Category, { foreignKey: 'parentId' });
+        Category.belongsTo(models.Category, { foreignKey: 'parent_id' });
         Category.belongsToMany(models.Product,
           { through: models.ProductCategory, foreignKey: 'category_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
       }
