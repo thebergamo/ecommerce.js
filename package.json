@@ -49,5 +49,8 @@
     "coveralls": "^2.11.6",
     "lab": "~8.0.1",
     "semistandard": "~7.0.4"
+  },
+  "semistandard": {
+    "ignore": ["/client/"] 
   }
 }
