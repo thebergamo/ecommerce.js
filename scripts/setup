@@ -14,5 +14,9 @@ echo "===> Setting up DB..."
 scripts/migration down
 scripts/migration
 
+echo "===> Setting up Frontend..."
+git submodule update --init --recursive
+client/scripts/bootstrap
+
 echo "==> App is now ready to go!"
 
