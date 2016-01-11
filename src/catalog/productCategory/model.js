@@ -6,7 +6,7 @@ module.exports = (sequelize, DataType) => {
       type: DataType.INTEGER,
       allowNull: false,
       references: {
-        model: 'Products',
+        model: 'products',
         key: 'id'
       },
       unique: 'product_category'
@@ -15,12 +15,15 @@ module.exports = (sequelize, DataType) => {
       type: DataType.INTEGER,
       allowNull: false,
       references: {
-        model: 'Categories',
+        model: 'categories',
         key: 'id'
       },
       unique: 'product_category'
     }
   }, {
+    createdAt: 'created_at',
+    updatedAt: 'update_at',
+    tableName: 'product_categories',
     underscored: true,
     classMethods: {
       associate: (models) => {
