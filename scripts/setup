@@ -14,9 +14,12 @@ echo "===> Setting up DB..."
 scripts/migration down
 scripts/migration
 
-echo "===> Setting up Frontend..."
-git submodule update --init --recursive
-client/scripts/bootstrap
+if [ ! "$TRAVIS" = true ]; then
+  # on travis we cannot init the submodule
+  echo "===> Setting up Frontend..."
+  git submodule update --init --recursive
+  client/scripts/bootstrap
+fi
 
 echo "==> App is now ready to go!"
 
