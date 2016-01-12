@@ -23,7 +23,7 @@ module.exports = (sequelize, DataType) => {
     status: {
       type: DataType.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true
     }
   }, {
     createdAt: 'created_at',
@@ -35,6 +35,16 @@ module.exports = (sequelize, DataType) => {
         Category.belongsTo(models.Category, { foreignKey: 'parent_id' });
         Category.belongsToMany(models.Product,
           { through: models.ProductCategory, foreignKey: 'category_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+      }
+    },
+
+    scopes: {
+      states: (value) => {
+        return {
+          where: {
+            status: value
+          }
+        };
       }
     }
   });
