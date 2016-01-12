@@ -112,6 +112,91 @@ describe('Routes /category', () => {
     });
   });
 
+  describe('GET /category/inactive', () => {
+    beforeEach((done) => {
+      return db.Category.destroy({where: {}})
+      .then(() => {
+        const options = {
+          method: 'POST',
+          url: '/category',
+          headers: {'Authorization': 'Bearer ' + userInfo},
+          payload: {}
+        };
+
+        for (let i = 0; i < 5; i++) {
+          options.payload = {
+            name: 'Category ' + i,
+            description: 'Some awesome category here!',
+            status: i === 0
+          };
+
+          server.inject(options, (response) => {
+            if (i === 4) {
+              return done();
+            }
+          });
+        }
+      });
+    });
+
+    describe('when user is not authenticated', () => {
+      it('returns 401 HTTP status code', (done) => {
+        const options = {method: 'GET', url: '/category/inactive'};
+        server.inject(options, (response) => {
+          expect(response).to.have.property('statusCode', 401);
+          done();
+        });
+      });
+    });
+
+    it('return 200 HTTP status code', (done) => {
+      db.Category.destroy({where: {}})
+      .then(() => {
+        const options = {
+          method: 'GET',
+          url: '/category/inactive',
+          headers: {'Authorization': 'Bearer ' + userInfo}
+        };
+        server.inject(options, (response) => {
+          expect(response).to.have.property('statusCode', 200);
+          done();
+        });
+      });
+    });
+
+    it('return an empty array when category is empty', (done) => {
+      db.Category.destroy({where: {}})
+      .then(() => {
+        const options = {
+          method: 'GET',
+          url: '/category/inactive',
+          headers: {'Authorization': 'Bearer ' + userInfo}
+        };
+        server.inject(options, (response) => {
+          expect(response).to.have.property('result');
+          expect(response.result).to.have.length.least(0);
+          done();
+        });
+      });
+    });
+
+    it('return 4 categories at a time', (done) => {
+      const options = {
+        method: 'GET',
+        url: '/category/inactive',
+        headers: {'Authorization': 'Bearer ' + userInfo}
+      };
+      server.inject(options, (response) => {
+        expect(response).to.have.property('result');
+        expect(response.result).to.have.length(4);
+        expect(response.result).to.contain.a.thing.with.property('name');
+        expect(response.result).to.contain.a.thing.with.property('description');
+        expect(response.result).to.contain.a.thing.with.property('status');
+        done();
+      });
+    });
+  });
+
   describe('GET /category/{id}', () => {
     let category;
     before((done) => {
