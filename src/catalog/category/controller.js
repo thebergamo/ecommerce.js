@@ -10,14 +10,22 @@ CategoryController.prototype = {
   read,
   create,
   update,
-  destroy
+  destroy,
+  inactive
 };
 
 module.exports = CategoryController;
 
 // [GET] /category
 function list (request, reply) {
-  this.model.findAll({})
+  this.model.scope({ method: ['states', true] }).findAll()
+  .then((categories) => reply(categories))
+  .catch((err) => reply.badImplementation(err.message));
+}
+
+// [GET] /category/inactive
+function inactive (request, reply) {
+  this.model.scope({ method: ['states', false] }).findAll()
   .then((categories) => reply(categories))
   .catch((err) => reply.badImplementation(err.message));
 }

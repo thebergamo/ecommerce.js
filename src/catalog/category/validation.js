@@ -8,7 +8,8 @@ const CategoryValidator = {
   read,
   create,
   update,
-  destroy
+  destroy,
+  inactive
 };
 
 module.exports = CategoryValidator;
@@ -31,6 +32,10 @@ const schema = {
 };
 
 function list () {
+  return {};
+}
+
+function inactive () {
   return {};
 }
 
