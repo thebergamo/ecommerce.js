@@ -14,7 +14,7 @@ let options = {
   storageOptions: {
     sequelize: db.sequelize,
     modelName: 'MigrationSchema',
-    tableName: 'MigrationTable'
+    tableName: 'migration_table'
   },
   logging: false,   // TODO: Create new logger to migration function receive a message parameter.
   upName: 'up',

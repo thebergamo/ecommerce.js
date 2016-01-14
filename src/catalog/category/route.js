@@ -19,6 +19,14 @@ exports.register = (server, options, next) => {
     },
     {
       method: 'GET',
+      path: '/category/inactive',
+      config: {
+        handler: controller.inactive,
+        validate: Validator.inactive()
+      }
+    },
+    {
+      method: 'GET',
       path: '/category/{id}',
       config: {
         handler: controller.read,
