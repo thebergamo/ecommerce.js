@@ -1,7 +1,7 @@
 {
   "name": "ecommerce.js",
   "version": "0.0.1",
-  "description": "Modern E-Commerce Platform for 21th century",
+  "description": "Modern E-Commerce Platform for 21th century :)",
   "main": "index.js",
   "scripts": {
     "test": "scripts/test",
