@@ -5,7 +5,7 @@
 [![Dependency Status][david-badge]][david-url]
 [![Join the chat at https://gitter.im/thebergamo/ecommerce.js][gitter-badge]][gitter-url]
 
-> Modern E-Commerce Platform for 21th century
+> Modern E-Commerce Platform for 21st century
 
 # What is Ecommerce.js?
 The proposal of Ecommerce.js is create a good Ecommerce Platform building with modern tools like Node.js.
